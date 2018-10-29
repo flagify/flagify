@@ -1,0 +1,72 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/node:10.12
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: yarn run lint
+      - run: yarn test
+
+  publish:
+    docker:
+      - image: circleci/node:10.12
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - add-ssh-keys:
+          fingerprints:
+            - $FINGER_PRINT
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: yarn run lint
+      - run: yarn test
+      - run: yarn run coverage
+      - run: git config --global user.email "$EMAIL"
+      - run: git config --global user.name "$USER_NAME"
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+      - run: npm whoami
+      - run: ./node_modules/.bin/lerna --cd-version="patch" --yes --registry="https://registry.npmjs.org/" publish
+
+workflows:
+  version: 2
+  test_and_staging:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only: develop
+      - publish:
+          filters:
+            branches:
+              only: master
