@@ -15,10 +15,12 @@ jobs:
             - v1-dependencies-
 
       - run: yarn install
+      - run: yarn run bootstrap
 
       - save_cache:
           paths:
             - node_modules
+            - packages/vue-flagify/node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn run lint
@@ -43,10 +45,12 @@ jobs:
             - v1-dependencies-
 
       - run: yarn install
+      - run: yarn run bootstrap
 
       - save_cache:
           paths:
             - node_modules
+            - packages/vue-flagify/node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn run lint
