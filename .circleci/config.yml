@@ -60,7 +60,7 @@ jobs:
       - run: git config --global user.name "$USER_NAME"
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - run: npm whoami
-      - run: ./node_modules/.bin/lerna --cd-version="patch" --yes --registry="https://registry.npmjs.org/" publish
+      # - run: ./node_modules/.bin/lerna --cd-version="patch" --yes --registry="https://registry.npmjs.org/" publish
 
 workflows:
   version: 2
