@@ -1,12 +1,12 @@
 {
   "name": "vue-flagify",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Vue.js flagify plugin",
   "main": "lib/vue-flagify.js",
   "module": "lib/vue-flagify.esm.js",
   "author": "m-mitsuhide <m.mitsuhide@amatelus.com>",
   "license": "MIT",
   "dependencies": {
-    "flagify": "^0.0.0"
+    "flagify": "^0.0.1"
   }
 }
