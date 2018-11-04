@@ -23,7 +23,7 @@ jobs:
 
       - run: yarn test
 
-      - run: yarn run build
+      - run: yarn run build:basic
       - run: yarn run bootstrap
       - run: yarn run lint
 
@@ -59,7 +59,10 @@ jobs:
             - packages/vue-flagify/node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: yarn run build
+      - run: yarn run build:basic
+      - run: yarn run bootstrap
+      - run: yarn run build:vue
+
       - run: git config --global user.email "$EMAIL"
       - run: git config --global user.name "$USER_NAME"
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc

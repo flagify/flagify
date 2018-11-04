@@ -3,6 +3,7 @@ import { uglify } from 'rollup-plugin-uglify';
 import resolve from 'rollup-plugin-node-resolve';
 import { eslint } from 'rollup-plugin-eslint';
 
+const { BUILD_MODE } = process.env;
 const plugins = [
   eslint({ exclude: '**/lib/**' }),
   resolve(),
@@ -13,65 +14,50 @@ const plugins = [
   }),
 ];
 
-const flagifyInput = 'packages/flagify/src/index.js';
-const vueInput = 'packages/vue-flagify/src/index.js';
-const flagifyOutput = 'packages/flagify/lib/flagify';
-const vueOutput = 'packages/vue-flagify/lib/vue-flagify';
-const flagifyName = 'flagify';
-const vueName = 'VueFlagify';
+let input;
+let output;
+let name;
+
+switch (BUILD_MODE) {
+  case 'basic':
+    input = 'packages/flagify/src/index.js';
+    output = 'packages/flagify/lib/flagify';
+    name = 'flagify';
+    break;
+  case 'vue':
+    input = 'packages/vue-flagify/src/index.js';
+    output = 'packages/vue-flagify/lib/vue-flagify';
+    name = 'VueFlagify';
+    break;
+  default:
+    break;
+}
 
 export default [
   {
-    input: flagifyInput,
+    input,
     output: {
-      name: flagifyName,
+      name,
       format: 'umd',
-      file: `${flagifyOutput}.min.js`,
+      file: `${output}.min.js`,
       sourcemap: true,
     },
     plugins: [...plugins, uglify()],
   },
   {
-    input: flagifyInput,
+    input,
     output: {
       format: 'es',
-      file: `${flagifyOutput}.esm.js`,
+      file: `${output}.esm.js`,
     },
     plugins,
   },
   {
-    input: flagifyInput,
+    input,
     output: {
-      name: flagifyName,
+      name,
       format: 'umd',
-      file: `${flagifyOutput}.js`,
-    },
-    plugins,
-  },
-  {
-    input: vueInput,
-    output: {
-      name: vueName,
-      format: 'umd',
-      file: `${vueOutput}.min.js`,
-      sourcemap: true,
-    },
-    plugins: [...plugins, uglify()],
-  },
-  {
-    input: vueInput,
-    output: {
-      format: 'es',
-      file: `${vueOutput}.esm.js`,
-    },
-    plugins,
-  },
-  {
-    input: vueInput,
-    output: {
-      name: vueName,
-      format: 'umd',
-      file: `${vueOutput}.js`,
+      file: `${output}.js`,
     },
     plugins,
   },

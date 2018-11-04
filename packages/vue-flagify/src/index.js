@@ -4,9 +4,10 @@ import {
   any,
   not,
 } from 'flagify';
+import assign from '../polyfill/assign';
 
 export const install = (Vue, { prefix = '$', types = {} }) => {
-  Object.assign(Vue.prototype, {
+  assign(Vue.prototype, {
     ...types,
     [`${prefix}eq`]: eq,
     [`${prefix}all`]: all,
