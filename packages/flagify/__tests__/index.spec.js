@@ -3,8 +3,8 @@ import {
   upFlag,
   downFlag,
   eq,
-  has,
-  is,
+  all,
+  any,
   not,
 } from '../src/index';
 
@@ -42,10 +42,10 @@ describe('types', () => {
     const flag = createFlag(basket, fruitTypes, cancelList);
 
     // then
-    expect(has(flag, fruitTypes.APPLE)).toBe(true);
-    expect(has(flag, fruitTypes.CHERRY)).toBe(false);
-    expect(has(flag, fruitTypes.BANANA)).toBe(false);
-    expect(has(flag, fruitTypes.GRAPE)).toBe(true);
+    expect(all(flag, fruitTypes.APPLE)).toBe(true);
+    expect(all(flag, fruitTypes.CHERRY)).toBe(false);
+    expect(all(flag, fruitTypes.BANANA)).toBe(false);
+    expect(all(flag, fruitTypes.GRAPE)).toBe(true);
   });
 
   test('merged types', () => {
@@ -96,8 +96,8 @@ describe('types', () => {
     const flag = createFlag(basket, foodTypes);
 
     // then
-    expect(has(flag, foodTypes.APPLE)).toBe(true);
-    expect(is(flag, foodTypes.FRUIT)).toBe(true);
+    expect(all(flag, foodTypes.APPLE)).toBe(true);
+    expect(any(flag, foodTypes.FRUIT)).toBe(true);
     expect(not(flag, foodTypes.VEGE)).toBe(true);
     expect(eq(flag, foodTypes.APPLE_BANANA)).toBe(true);
   });
