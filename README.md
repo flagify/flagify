@@ -5,6 +5,7 @@ Flagify is a JavaScript library for managing a lot of flags
 [![CircleCI (master branch)](https://circleci.com/gh/flagify/flagify/tree/master.svg?style=shield)](https://circleci.com/gh/flagify/flagify)
 [![Tested with Jest](https://img.shields.io/badge/tested_with-Jest-99424f.svg)](https://github.com/facebook/jest)
 [![Coveralls github](https://img.shields.io/codecov/c/github/flagify/flagify/master.svg)](https://codecov.io/gh/flagify/flagify)
+[![npm version](https://img.shields.io/npm/v/flagify.svg)](https://www.npmjs.com/package/flagify)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Usage
