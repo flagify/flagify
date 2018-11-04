@@ -1,15 +1,16 @@
 import {
   eq,
-  has,
-  is,
+  all,
+  any,
   not,
 } from 'flagify';
 
-export const install = (Vue, { prefix = '$' }) => {
+export const install = (Vue, { prefix = '$', types = {} }) => {
   Object.assign(Vue.prototype, {
+    ...types,
     [`${prefix}eq`]: eq,
-    [`${prefix}has`]: has,
-    [`${prefix}is`]: is,
+    [`${prefix}all`]: all,
+    [`${prefix}any`]: any,
     [`${prefix}not`]: not,
   });
 };

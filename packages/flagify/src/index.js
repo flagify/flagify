@@ -14,8 +14,8 @@ export const downFlag = (flag, type) => flag & ~type;
 
 export const eq = (flag, type) => flag === type;
 
-export const has = (flag, type) => (flag & type) === type;
+export const all = (flag, type) => (flag & type) === type;
 
-export const is = (flag, type) => (flag & type) > 0;
+export const any = (flag, type) => (flag & type) > 0;
 
 export const not = (flag, type) => (flag & type) === 0;

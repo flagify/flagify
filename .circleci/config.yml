@@ -2,7 +2,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/node:10.12
+      - image: circleci/node:10.13
 
     working_directory: ~/repo
 
@@ -15,20 +15,27 @@ jobs:
             - v1-dependencies-
 
       - run: yarn install
-      - run: yarn run bootstrap
 
       - save_cache:
           paths:
             - node_modules
-            - packages/vue-flagify/node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: yarn run lint
       - run: yarn test
+
+      - run: yarn run build
+      - run: yarn run bootstrap
+      - run: yarn run lint
+
+      - run:
+          command: |
+            if [ $CIRCLE_BRANCH = "master" ] ; then
+              yarn run coverage
+            fi
 
   publish:
     docker:
-      - image: circleci/node:10.12
+      - image: circleci/node:10.13
 
     working_directory: ~/repo
 
@@ -45,7 +52,6 @@ jobs:
             - v1-dependencies-
 
       - run: yarn install
-      - run: yarn run bootstrap
 
       - save_cache:
           paths:
@@ -53,24 +59,20 @@ jobs:
             - packages/vue-flagify/node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: yarn run lint
-      - run: yarn test
-      - run: yarn run coverage
+      - run: yarn run build
       - run: git config --global user.email "$EMAIL"
       - run: git config --global user.name "$USER_NAME"
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-      - run: npm whoami
       - run: ./node_modules/.bin/lerna --cd-version="patch" --yes --registry="https://registry.npmjs.org/" publish
 
 workflows:
   version: 2
   test_and_staging:
     jobs:
-      - test:
-          filters:
-            branches:
-              only: develop
+      - test
       - publish:
+          requires:
+            - test
           filters:
             branches:
               only: master

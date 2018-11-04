@@ -17,8 +17,8 @@ const {
   createTypes,
   upFlag,
   eq,
-  has,
-  is,
+  all,
+  any,
   not,
 } = require('flagify');
 
@@ -66,8 +66,8 @@ const createFlag = (data, types) => {
 
 const flag = createFlag(basket, foodTypes);
 
-console.log(has(flag, foodTypes.APPLE)); // true
-console.log(is(flag, foodTypes.FRUIT)); // true
+console.log(all(flag, foodTypes.APPLE)); // true
+console.log(any(flag, foodTypes.FRUIT)); // true
 console.log(not(flag, foodTypes.VEGE)); // true
 console.log(eq(flag, foodTypes.APPLE_BANANA)); // true
 ```
