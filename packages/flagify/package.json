@@ -1,6 +1,6 @@
 {
   "name": "flagify",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Flag management library",
   "main": "lib/flagify.js",
   "module": "lib/flagify.esm.js",
