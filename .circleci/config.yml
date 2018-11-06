@@ -70,7 +70,7 @@ jobs:
 
 workflows:
   version: 2
-  test_and_staging:
+  test_and_publish:
     jobs:
       - test
       - publish:

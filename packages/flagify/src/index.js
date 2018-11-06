@@ -18,4 +18,6 @@ export const all = (flag, type) => (flag & type) === type;
 
 export const any = (flag, type) => (flag & type) > 0;
 
-export const not = (flag, type) => (flag & type) === 0;
+export const notOne = (flag, type) => (flag & type) === 0;
+
+export const notAll = (flag, type) => (flag & type) !== type;
