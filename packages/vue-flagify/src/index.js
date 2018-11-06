@@ -2,7 +2,8 @@ import {
   eq,
   all,
   any,
-  not,
+  notOne,
+  notAll,
 } from 'flagify';
 import assign from '../polyfill/assign';
 
@@ -13,7 +14,8 @@ export default {
       [`${prefix}eq`]: eq,
       [`${prefix}all`]: all,
       [`${prefix}any`]: any,
-      [`${prefix}not`]: not,
+      [`${prefix}notOne`]: notOne,
+      [`${prefix}notAll`]: notAll,
     });
   },
 };
